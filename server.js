@@ -1,4 +1,4 @@
-const express = require('express');
+﻿const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
@@ -309,6 +309,29 @@ app.delete('/api/jobs/:id', authenticateToken, requireEmployer, (req, res) => {
   }
 });
 
+
+// Root route
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'React Jobs API Server', 
+    status: 'running',
+    endpoints: {
+      health: '/api/health',
+      auth: {
+        login: '/api/auth/login',
+        signup: '/api/auth/signup',
+        me: '/api/auth/me'
+      },
+      jobs: {
+        list: '/api/jobs',
+        single: '/api/jobs/:id',
+        create: '/api/jobs (POST)',
+        update: '/api/jobs/:id (PUT)',
+        delete: '/api/jobs/:id (DELETE)'
+      }
+    }
+  });
+});
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'Jobs API is running' });
@@ -316,8 +339,8 @@ app.get('/api/health', (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`🚀 Jobs API server running on port ${PORT}`);
-  console.log(`📡 API endpoints available at http://localhost:${PORT}/api`);
+  console.log(`ðŸš€ Jobs API server running on port ${PORT}`);
+  console.log(`ðŸ“¡ API endpoints available at http://localhost:${PORT}/api`);
 });
 
 module.exports = app;
