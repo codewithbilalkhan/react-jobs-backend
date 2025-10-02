@@ -1,29 +1,54 @@
-﻿const express = require('express');const express = require('express');
+﻿module.exports = (req, res) => {const express = require('express');const express = require('express');
 
-const cors = require('cors');const cors = require('cors');
+  // Set CORS headers
 
-const fs = require('fs');const fs = require('fs');
+  res.setHeader('Access-Control-Allow-Origin', '*');const cors = require('cors');const cors = require('cors');
 
-const path = require('path');const path = require('path');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
 
-const { users, JWT_SECRET, authenticateToken, requireEmployer } = require('../auth');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');const fs = require('fs');const fs = require('fs');
+
+  
+
+  if (req.method === 'OPTIONS') {const path = require('path');const path = require('path');
+
+    res.status(200).end();
+
+    return;const { users, JWT_SECRET, authenticateToken, requireEmployer } = require('../auth');
+
+  }
 
 // Auth configuration (inline to avoid import issues)
 
-const JWT_SECRET = 'your-secret-key';const app = express();
+  res.status(200).json({
 
+    message: 'React Jobs API Server',const JWT_SECRET = 'your-secret-key';const app = express();
 
+    status: 'running',
 
-const users = [// Middleware
+    timestamp: new Date().toISOString(),
 
-  {app.use(cors());
+    endpoints: {
 
-    id: 1,app.use(express.json());
+      health: '/api/health',const users = [// Middleware
 
-    name: 'John Employer',
+      jobs: '/api/jobs',
 
-    email: 'employer@example.com',// Path to jobs data file
+      auth: {  {app.use(cors());
 
+        login: '/api/auth/login',
+
+        signup: '/api/auth/signup',    id: 1,app.use(express.json());
+
+        me: '/api/auth/me'
+
+      }    name: 'John Employer',
+
+    }
+
+  });    email: 'employer@example.com',// Path to jobs data file
+
+};
     password: 'password123',const jobsFilePath = path.join(__dirname, '../jobs.json');
 
     role: 'employer'
